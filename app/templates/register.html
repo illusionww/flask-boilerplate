@@ -1,35 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-    <form action="" method=post class="form-horizontal">
-        <h2>Sign up </h2>
-        <div class="control-group">
-            <div class="controls">
-                <input type="text" id="username" name="username" class="input-xlarge"
-                       placeholder="Enter Username" value="{{ request.form.username }}"
-                       required>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="controls">
-                <input type="password" id="password" name="password" class="input-xlarge"
-                       placeholder="Enter Password" value="{{ request.form.password }}"
-                       required>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="controls">
-                <input type="email" id="email" name="email" class="input-xlarge"
-                       placeholder="Enter Email" value="{{ request.form.username }}"
-                       required>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn btn-success">Signup</button>
-            </div>
-        </div>
+    <link rel="stylesheet" href="/static/css/signin.css">
+    <form action="" method=post class="form-signin">
+        <h2 class="form-signin-heading">Sign up</h2>
+        <input type="text" id="username" name="username" class="form-control field-gap" placeholder="Username"
+               value="{{ request.form.username }}" required autofocus>
+        <input type="password" id="inputPassword" name="password" class="form-control field-gap" placeholder="Password"
+               value="{{ request.form.password }}" required>
+        <input type="email" id="email" name="email" class="form-control field-gap" placeholder="Email"
+               value="{{ request.form.email }}" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
 {% endblock %}

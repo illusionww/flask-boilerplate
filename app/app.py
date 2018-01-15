@@ -1,14 +1,14 @@
 import logging
-import os
 from logging.handlers import RotatingFileHandler
 
 from flask import Flask, request, flash, url_for, redirect, render_template, g
 from flask_login import login_user, logout_user, login_required, LoginManager, current_user
 
+import config
 from models import db, User
 
 app = Flask(__name__)
-app.secret_key = 'super secret string 228'
+app.secret_key = config.app.secret_key
 
 file_handler = RotatingFileHandler('output.log', maxBytes=100 * 1024 * 1024, backupCount=5, encoding='utf8')
 file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s'))
@@ -16,14 +16,7 @@ file_handler.setLevel(logging.INFO)
 app.logger.setLevel(logging.INFO)
 app.logger.addHandler(file_handler)
 
-POSTGRES = {
-    'user': os.environ['POSTGRES_USER'],
-    'pw': os.environ['POSTGRES_PASSWORD'],
-    'db': os.environ['POSTGRES_DB'],
-    'host': 'db',
-    'port': '5432',
-}
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+app.config['SQLALCHEMY_DATABASE_URI'] = config.db.uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
